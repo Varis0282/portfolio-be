@@ -10,28 +10,26 @@ require('./Models/user-model');
 require('./Models/portfolio-model');
 
 app.use(express.json());
-app.use(require('./Routes/portfolioRoutes'));
-app.use(cors({
-  origin: '*'
-}));
-// deployment config
-__dirname = path.resolve();
+// ✅ Move CORS Middleware Before Any Routes
+const allowedOrigins = ["http://localhost:3000", "https://neellakalyansai.netlify.app"];
 
-if (process.env.NODE_ENV === "production") {
-  app.use(express.static(path.join(__dirname, "/front-end")));
-  app.get("*", (req, res) => {
-    res.sendFile(path.join(__dirname, "front-end", "build", "index.html"));
-  });
-}
+app.use((req, res, next) => {
+  const origin = req.headers.origin;
+  if (allowedOrigins.includes(origin)) {
+    res.setHeader("Access-Control-Allow-Origin", origin);
+    res.setHeader("Access-Control-Allow-Methods", "GET,POST,PUT,DELETE,OPTIONS");
+    res.setHeader("Access-Control-Allow-Headers", "Content-Type, Authorization");
+    res.setHeader("Access-Control-Allow-Credentials", "true");
+  }
+  // Handle OPTIONS preflight requests
+  if (req.method === "OPTIONS") {
+    return res.sendStatus(200);
+  }
 
-const get = async () => {
-  const result = await fetch('https://varisrajak.onrender.com/')
-  // console.log(result);
-}
+  next();
+});
 
-setInterval(() => {
-  get();
-}, 590000);
+app.use("/api", require("./Routes/portfolioRoutes"));
 
 app.listen(port, () => {
   console.log('App listening on port ' + port);
