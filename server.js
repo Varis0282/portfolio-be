@@ -11,7 +11,7 @@ require('./Models/portfolio-model');
 
 app.use(express.json());
 // ✅ Move CORS Middleware Before Any Routes
-const allowedOrigins = ["http://localhost:3000", "https://neellakalyansai.netlify.app"];
+const allowedOrigins = ["http://localhost:3000", "https://varisrajak.netlify.app/"];
 
 app.use((req, res, next) => {
   const origin = req.headers.origin;
