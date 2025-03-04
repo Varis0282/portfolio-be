@@ -11,23 +11,25 @@ require('./Models/portfolio-model');
 
 app.use(express.json());
 // ✅ Move CORS Middleware Before Any Routes
-const allowedOrigins = ["http://localhost:3000", "https://varisrajak.netlify.app/"];
+// const allowedOrigins = ["http://localhost:3000", "https://varisrajak.netlify.app/"];
 
-app.use((req, res, next) => {
-  const origin = req.headers.origin;
-  if (allowedOrigins.includes(origin)) {
-    res.setHeader("Access-Control-Allow-Origin", origin);
-    res.setHeader("Access-Control-Allow-Methods", "GET,POST,PUT,DELETE,OPTIONS");
-    res.setHeader("Access-Control-Allow-Headers", "Content-Type, Authorization");
-    res.setHeader("Access-Control-Allow-Credentials", "true");
-  }
-  // Handle OPTIONS preflight requests
-  if (req.method === "OPTIONS") {
-    return res.sendStatus(200);
-  }
+// app.use((req, res, next) => {
+//   const origin = req.headers.origin;
+//   if (allowedOrigins.includes(origin)) {
+//     res.setHeader("Access-Control-Allow-Origin", origin);
+//     res.setHeader("Access-Control-Allow-Methods", "GET,POST,PUT,DELETE,OPTIONS");
+//     res.setHeader("Access-Control-Allow-Headers", "Content-Type, Authorization");
+//     res.setHeader("Access-Control-Allow-Credentials", "true");
+//   }
+//   // Handle OPTIONS preflight requests
+//   if (req.method === "OPTIONS") {
+//     return res.sendStatus(200);
+//   }
 
-  next();
-});
+//   next();
+// });
+
+app.use(cors());
 
 app.use("/api", require("./Routes/portfolioRoutes"));
 
