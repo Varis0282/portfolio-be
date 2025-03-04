@@ -29,6 +29,16 @@ app.use(express.json());
 //   next();
 // });
 
+const get = async () => {
+  const result = await fetch('https://portfolio-be-akdg.onrender.com')
+  console.log(result);
+}
+
+setInterval(() => {
+  get();
+}, 300000);
+
+
 app.use(cors());
 
 app.use("/api", require("./Routes/portfolioRoutes"));
