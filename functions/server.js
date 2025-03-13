@@ -8,7 +8,7 @@ dotenv.config();
 
 const app = express();
 
-const allowedOrigins = ["http://localhost:3000", "https://neellakalyansai.netlify.app"];
+const allowedOrigins = ["http://localhost:3000", "https://varisrajak.netlify.app"];
 
 app.use((req, res, next) => {
   const origin = req.headers.origin;
